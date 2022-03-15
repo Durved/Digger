@@ -1,4 +1,3 @@
-from platform import python_branch
 import pygame
 
 class Player(pygame.sprite.Sprite):
