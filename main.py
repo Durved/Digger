@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import QName
 import pygame
 from map import MAP
 from player import Player
@@ -11,6 +10,9 @@ main_clock = pygame.time.Clock()
 
 dirt_surf = pygame.Surface((64, 64))
 dirt_surf.fill('brown')
+
+emerald_surf = pygame.Surface((32, 32))
+emerald_surf.fill('green')
 
 for r_i, r in enumerate(MAP):
     for c_i, c in enumerate(r):
@@ -30,6 +32,9 @@ while True:
         for c_i, c in enumerate(r):
             if c == 'd':
                 screen.blit(dirt_surf, (c_i*64, r_i*64))
+            if c == 'e':
+                screen.blit(dirt_surf, (c_i*64, r_i*64))
+                screen.blit(emerald_surf, (c_i*64+16, r_i*64+16))
     screen.blit(player.image, player.rect)
     pygame.display.update()
     screen.fill('black')
