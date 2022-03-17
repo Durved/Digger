@@ -1,5 +1,4 @@
 import pygame
-
 from map import MAP
 
 class Gold(pygame.sprite.Sprite):
@@ -11,18 +10,23 @@ class Gold(pygame.sprite.Sprite):
         self.cell = self.rect.centerx // 64
         self.row = self.rect.centery // 64
     
+
+
     def update(self):
         self.cell = self.rect.centerx // 64
         self.row = self.rect.centery // 64
 
-        if self.row < 7:
-            if MAP[self.row + 1][self.cell] == ' ':
-                self.rect.bottom += 2
-                MAP[self.row][self.cell] = ' '
-            elif MAP[self.row][self.cell] == ' ':
-                self.rect.bottom += 2
-                if self.rect.bottom // 64 > self.row:
-                    self.rect.bottom = self.row * 64 + 64
+        if MAP[self.rect.bottom // 64][self.cell] == ' ' or MAP[(self.rect.bottom + 60) // 64][self.cell] == ' ':
+            self.rect.centery += 2
+
+        # if self.row < 7:
+        #     if MAP[self.row + 1][self.cell] == ' ':
+        #         self.rect.bottom += 2
+        #         MAP[self.row][self.cell] = ' '
+        #     elif MAP[self.row][self.cell] == ' ':
+        #         self.rect.bottom += 2
+        #         if self.rect.bottom // 64 > self.row:
+        #             self.rect.bottom = self.row * 64 + 64
 
         if self.rect.left < 0:
             self.rect.left = 0

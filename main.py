@@ -1,3 +1,4 @@
+from copy import deepcopy
 import pygame
 from map import MAP
 from player import Player
@@ -20,7 +21,8 @@ golds = pygame.sprite.Group()
 for r_i, r in enumerate(MAP):
     for c_i, c in enumerate(r):
         if c == 'p':
-            player = Player((c_i * 64, r_i*64))
+            pos = (c_i * 64, r_i*64)
+            player = Player(pos)
         if c == 'g':
             MAP[r_i][c_i] = 'd'
             golds.add(Gold((c_i * 64 + 16, r_i*64 + 16)))
@@ -33,6 +35,15 @@ while True:
             exit()
 
     player.update()
+    for i in pygame.sprite.spritecollide(player, golds, False):
+        if player.rect.bottom - i.rect.bottom > 32:
+            player.rect.topleft = pos
+        else:
+            if i.rect.left - player.rect.left > 0 :
+                if i.rect.right < 640:
+                    i.rect.left = player.rect.right
+            elif i.rect.left > 0:
+                i.rect.right = player.rect.left
     golds.update()
     MAP[player.row][player.cell] = ' '
 
